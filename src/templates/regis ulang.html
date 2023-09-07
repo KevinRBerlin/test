@@ -4,8 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Homepage</title>
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/622/622848.png">
+        <title>Register</title><link rel="icon" href="https://cdn-icons-png.flaticon.com/512/622/622848.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
         <style>
             /* Add a black background color to the top navigation */
@@ -40,8 +39,8 @@
             {% if messages %}
                 <ul class=flashes>
                 {% for message in messages %}
-                <div class="notification is-light">
-                    <a href="/" class="delete"></a>
+                <div class="notification is-danger">
+                    <a href="/register" class="delete"></a>
                     {{ message }}
                 </div>
                 {% endfor %}
@@ -52,40 +51,28 @@
     </head>
     <body>
         <div class="topnav">
-            <a class="active" href="/">Home</a>
-            <a href="/logout" class="navbar-item" onclick="preventBack()">Logout</a>
+            <a href="/login" class="navbar-item">Login</a>
+            <a href="/register" class="navbar-item">Register</a>
+            <a href="/register" class="navbar-item active">Register ulang</a>
         </div>
         <section class="hero is-small">
             <div class="hero-body">
-                <p class="title">Hello {{user}}</p>
-                <p class="subtitle">Have a good day</p>
+                <p class="title">Register ulang</p>
+                <p class="subtitle"></p>
             </div>
         </section>
         <div class="container is-max-widescreen">
             <div class="notification ">
-                <div class="box has-text-centered columns is-gapless is-multiline is-mobile">
-                    <button class="button is-primary column is-12 mb-4">
-                        <a href="/absen-datang">Absen Datang</a>
-                    </button>
-                    <div class="button is-warning column is-12 mb-4">
-                        <a href="/keluar">Izin/Keluar</a>
-                    </div>
-                    <div class="button is-danger column is-12 mb-4">
-                        <a href="/absen-pulang">Absen Pulang</a>
-                    </div>
-                </div>
+                <form class="box" action = "/regis-ulang-submit" method = "POST">
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <input class="input" type="text" name="name" placeholder="your name">
+                        </div>
+                    </div>                
+                    <button class="button is-primary" type="submit">Register</button>
+                </form>
             </div>
         </div>
-    <script>
-        function preventBack(){window.history.forward();}
-            setTimeout("preventBack()", 0);
-            window.onunload=function(){null};
-
-        var fileName = document.getElementById('files').value.toLowerCase();
-        if(!fileName.endsWith('.pdf') || !fileName.endsWith('.jpg') || !fileName.endsWith('.jpeg') || !fileName.endsWith('.png')){
-            alert('Please upload excel file only.');
-            return false;
-        }
-    </script>
+    </body>
 </html>
-

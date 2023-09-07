@@ -6,19 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin</title><link rel="icon" href="https://cdn-icons-png.flaticon.com/512/622/622848.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-            {% for message in messages %}
-            <div class="notification is-danger">
-                <a href="/" class="delete"></a>
-                {{ message }}
-            </div>
-            {% endfor %}
-            </ul>
-        {% endif %}
-        {% endwith %}
-        {% block body %}{% endblock %}
         <style>
             /* Add a black background color to the top navigation */
             .topnav {
@@ -56,12 +43,22 @@
                 color: white;
             }
         </style>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                <div class="notification is-light">
+                    <a href="/" class="delete"></a>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
     </head>
     <body>
         <div class="topnav">
-            <!-- <a target="_blank" class="navbar-item" href="https://docs.ipfs.io/concepts/what-is-ipfs/">
-                <img src="https://cdn-icons-png.flaticon.com/512/622/622848.png" width="30" height="40">
-            </a> -->
             <a class="active" href="/admin">History</a>
             <a href="/employee" class="navbar-item">Employee</a>
             <a href="/filter-masuk" class="navbar-item subnav">Masuk</a>
@@ -69,38 +66,7 @@
             <a href="/filter-pulang" class="navbar-item subnav">Pulang</a>
             <a href="/admin" class="navbar-item subnav">All</a>
             <a href="/logout" class="navbar-item" onclick="preventBack()">Logout</a>
-                    </div>
-                </div>
-            <!-- <a target="_blank" href="https://wa.me/+6282155534039/?text=there's a problem..." class="navbar-item">Report an issue</a> -->
         </div>
-        <!-- <nav class="navbar is-link is-active" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a target="_blank" class="navbar-item" href="/logout">
-                    <img src="https://cdn-icons-png.flaticon.com/512/622/622848.png" width="30" height="40">
-                </a>
-            </div>
-            <div id="navbar1" class="navbar-menu">
-                <div class="navbar-start">
-                    <a href="/employee" class="navbar-item">Employee</a>
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">Filter</a>
-                        <div class="navbar-dropdown">
-                            <a href="/filter-masuk" class="navbar-item">Masuk</a>
-                            <a href="/filter-keluar" class="navbar-item">Izin/Keluar</a>
-                            <a href="/filter-pulang" class="navbar-item">Pulang</a>
-                            <a href="/admin" class="navbar-item">All</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="navbar-end">
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a href="/logout" class="button is-light" onclick="preventBack()">Log out</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav> -->
         <section class="hero is-small">
             <div class="hero-body">
                 <p class="title">Hello Admin</p>
@@ -110,9 +76,14 @@
         <div class="container is-max-widescreen">
             <div class="notification ">
                 <div class="box columns is-gapless is-multiline is-mobile">
-                    <span class="subtitle column is-10">Histori</span>
-                    <div class="button is-primary column is-2">
-                        <a href="/write-csv">Export Excel</a>
+                    <div class="box columns is-gapless is-multiline is-mobile">
+                        <span class="title column is-12 mb-2">Histori</span>
+                        <div class="button is-primary column is-3 mr-3">
+                            <a href="/write-csv-today">Export Excel Today</a>
+                        </div>
+                        <div class="button is-primary column is-3 ml-3">
+                            <a href="/write-csv">Export Excel</a>
+                        </div>
                     </div>
                 </div>
                 <div class="box has-text-centered">
@@ -159,5 +130,6 @@
             return false;
         }
     </script>
+        
 </html>
 

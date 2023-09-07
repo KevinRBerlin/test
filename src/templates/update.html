@@ -57,55 +57,31 @@
         <div class="topnav">
             <a class="navbar-item" href="/admin">History</a>
             <a href="/employee" class="navbar-item active">Employee</a>
-            <a href="/message" class="navbar-item">Notify</a>
             <a href="/logout" class="navbar-item" onclick="preventBack()">Logout</a>
         </div>
+
         <section class="hero is-small">
             <div class="hero-body">
-                <p class="title">Employee list</p>
+                <p class="title" >Update</p>
+                <p class="subtitle">edit employee details</p>
             </div>
         </section>
+
         <div class="container is-max-widescreen">
             <div class="notification ">
                 <div class="box">
-                    <table class="table" width="100%">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Nomor Whatsapp</th>
-                            <th>IP Address</th>
-                            <th>Action</th>
-                        </tr>
-                        {% if c == 0 %}
-                    </table>
-                        <section class="section">
-                            <div class="container">
-                            <div class="columns is-centered">
-                                <div class="column is-half">
-                                <figure>
-                                    <img src="https://cdn.dribbble.com/users/760295/screenshots/4433975/media/03494b209a1511a61868ced337b97931.png?compress=1&resize=800x600&vertical=top" alt="Melton Hill Lake">
-                                </figure>
-                                </div>
+                    <form class="box" action="/edit-user/{{user_to_update.id}}" method = "POST">
+                        <div class="field">
+                            <label class="label">New Details</label>
+                            <div class="control">
+                                <input class="input mb-3" type="text" name="name" value={{user_to_update.name}} required>
+                                <input class="input mb-3" type="text" name="pw" value={{user_to_update.password}} required>
+                                <input class="input mb-3" type="text" name="wa" value={{user_to_update.wa}} required>
+                                <input class="input mb-3" type="text" name="mac" value={{user_to_update.mac}} required>
                             </div>
-                            </div>
-                        </section>
-                        {% else %}
-                            {% for e in employee %}
-                                <tr>
-                                    <td>{{e.id}}</td>
-                                    <td>{{e.name}}</td>
-                                    <td>{{e.wa}}</td>
-                                    <td>{{e.mac}}</td>
-                                    <td>
-                                        <a href="/delete-employee?id={{ e.id }}">Delete</a>
-                                        <br>
-                                        <a href="update/{{e.id}}">Edit</a>
-                                        <a href="statistik/{{e.id}}">Statistik</a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% endif %}
-                    </table>
+                        </div>
+                        <button class="button is-primary" type="submit">Save</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -114,12 +90,5 @@
         function preventBack(){window.history.forward();}
             setTimeout("preventBack()", 0);
             window.onunload=function(){null};
-
-        var fileName = document.getElementById('files').value.toLowerCase();
-        if(!fileName.endsWith('.pdf') || !fileName.endsWith('.jpg') || !fileName.endsWith('.jpeg') || !fileName.endsWith('.png')){
-            alert('Please upload excel file only.');
-            return false;
-        }
     </script>
 </html>
-

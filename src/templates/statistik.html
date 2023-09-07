@@ -4,9 +4,21 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Homepage</title>
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/622/622848.png">
+        <title>Admin</title><link rel="icon" href="https://cdn-icons-png.flaticon.com/512/622/622848.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+            <div class="notification is-light">
+                <a href="/" class="delete"></a>
+                {{ message }}
+            </div>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
         <style>
             /* Add a black background color to the top navigation */
             .topnav {
@@ -35,48 +47,49 @@
                 background-color: #04AA6D;
                 color: white;
             }
+            .topnav a.subactive {
+                background-color: yellowgreen;
+                color: white;
+            }
         </style>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                {% for message in messages %}
-                <div class="notification is-light">
-                    <a href="/" class="delete"></a>
-                    {{ message }}
-                </div>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-        {% block body %}{% endblock %}
     </head>
     <body>
         <div class="topnav">
-            <a class="active" href="/">Home</a>
+            <a class="navbar-item" href="/admin">History</a>
+            <a href="/employee" class="navbar-item active">Employee</a>
+            <a href="/message" class="navbar-item">Notify</a>
+            <a href="/filter-scan" class="navbar-item">Scan</a>
             <a href="/logout" class="navbar-item" onclick="preventBack()">Logout</a>
         </div>
         <section class="hero is-small">
             <div class="hero-body">
-                <p class="title">Hello {{user}}</p>
-                <p class="subtitle">Have a good day</p>
+                <p class="title" >Statistik</p>
+                <p class="subtitle">{{user_to_update.name}}</p>
             </div>
         </section>
+
         <div class="container is-max-widescreen">
             <div class="notification ">
-                <div class="box has-text-centered columns is-gapless is-multiline is-mobile">
-                    <button class="button is-primary column is-12 mb-4">
-                        <a href="/absen-datang">Absen Datang</a>
-                    </button>
-                    <div class="button is-warning column is-12 mb-4">
-                        <a href="/keluar">Izin/Keluar</a>
-                    </div>
-                    <div class="button is-danger column is-12 mb-4">
-                        <a href="/absen-pulang">Absen Pulang</a>
-                    </div>
+                <div class="box">
+                    <img src="{{ url_for('static', filename='img/plot.png') }}">
+                    <!-- <form class="box" action="/edit-user/{{user_to_update.id}}" method = "POST">
+                        <div class="field">
+                            <label class="label">New Details</label>
+                            <div class="control">
+                                <input class="input mb-3" type="text" name="name" value={{user_to_update.name}} required>
+                                <input class="input mb-3" type="text" name="pw" value={{user_to_update.password}} required>
+                                <input class="input mb-3" type="text" name="wa" value={{user_to_update.wa}} required>
+                                <input class="input mb-3" type="text" name="mac" value={{user_to_update.mac}} required>
+                            </div>
+                        </div>
+                        <button class="button is-primary" type="submit">Save</button>
+                    </form> -->
                 </div>
             </div>
         </div>
+    </body>
     <script>
+
         function preventBack(){window.history.forward();}
             setTimeout("preventBack()", 0);
             window.onunload=function(){null};
