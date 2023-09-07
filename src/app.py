@@ -234,7 +234,7 @@ def scan():
     temp = sorted(baris_stat, key=itemgetter(0), reverse=True)
     l = sum_menit(nama, temp)
     p = [['-'.join(hari_choosed.split('-')[::-1])]] + l
-    with open(r"csv\time stamp_"+ '-'.join(hari_choosed.split('-')[::-1]) +".csv", "w", newline="") as f:
+    with open(r"csv\time stamp\time stamp_"+ hari_choosed +".csv", "w", newline="") as f:
         writer = csv.writer(f)
         # writer.writerow(['Tanggal', 'Stamp']+nama)
         writer.writerows(p)
@@ -248,12 +248,12 @@ def write_csv_scan(bstat, tgl, nama):
     if len(bstat)==0:
         flash(f'Belum ada data absen hari ini')
     else:
-        tgl2 = '-'.join(tgl.split('-')[::-1])
-        
+        # tgl2 = '-'.join(tgl.split('-')[::-1])
+        tgl2 = tgl
         for i in bstat:
             i.insert(0, tgl2)
         
-        with open(r"csv\data absen_"+tgl2+".csv", "w", newline="") as f:
+        with open(r"csv\data absen\data absen_"+tgl2+".csv", "w", newline="") as f:
             writer = csv.writer(f)
             # writer.writerow(['Tanggal', 'Stamp']+nama)
             writer.writerows(bstat)
